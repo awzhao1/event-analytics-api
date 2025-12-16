@@ -8,6 +8,8 @@ from app.schemas.analytics import EventSummary
 from typing import List
 from datetime import datetime
 from fastapi import Query
+from app.api.deps import get_current_user
+from app.db.models import User
 
 
 
@@ -25,9 +27,13 @@ def get_db():
 # Creates an event in the database
 # Dependency injection 
 @router.post("/")
-def create_event(event: EventCreate, db: Session = Depends(get_db)):
+def create_event(
+    event: EventCreate, 
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
     db_event = Event(
-        user_id=event.user_id,
+        user_id=user.id,
         event_type=event.event_type,
         timestamp=event.timestamp,
         event_metadata=event.event_metadata,
@@ -44,13 +50,14 @@ def create_event(event: EventCreate, db: Session = Depends(get_db)):
 def event_summary(
     start: datetime | None = Query(default = None),
     end: datetime | None = Query(default = None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
 ):
     # Get summary of events
     query = db.query(
         Event.event_type,
         func.count(Event.id).label('count')
-    )
+    ).filter(Event.user_id == user.id)
 
     # Filter by timestamps if provided in query
     if start:
@@ -58,7 +65,7 @@ def event_summary(
     if end:
         query = query.filter(Event.timestamp <= end)
     
-    
+
     results = query.group_by(Event.event_type).all()
     
     return [
