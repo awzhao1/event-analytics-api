@@ -9,6 +9,7 @@ from typing import List
 from datetime import datetime
 from fastapi import Query
 from app.api.deps import get_current_user
+from app.api.deps import get_db
 from app.db.models import User
 
 
@@ -16,13 +17,6 @@ from app.db.models import User
 # creates the router
 router = APIRouter(prefix="/events", tags=["events"])
 
-# handles sqlalchemy session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 # Creates an event in the database
 # Dependency injection 
