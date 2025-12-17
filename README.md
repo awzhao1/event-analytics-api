@@ -18,29 +18,36 @@ A FastAPI-based API for tracking user events with analytics support. Includes Do
 git clone <url>
 cd event-analytics-api
 ```
-## Environment Variables
-create a `.env` file in the root of the project:
-```
-# Main DB
-DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/event_analytics
 
-# Test DB
-TEST_DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/event_analytics_test
-```
 ## Development (Local)
-Start virtual environment and install dependencies:
+1. Start virtual environment and install dependencies:
 ```
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-Start the FastAPI app:
+2. Create the required database in PostgreSQL:
+```
+psql -U postgres
+CREATE DATABASE event_analytics;
+```
+3. Run Alembic migrations to create tables
+```
+alembic upgrade head
+```
+4. Start the FastAPI app:
 ```
 uvicorn app.main:app --reload
 ```
 Visit http://127.0.0.1:8000/docs for the Swagger UI.
 
 ## Docker Setup
+## Environment Variables
+create a `.env` file in the root of the project:
+```
+# Main DB
+DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/event_analytics
+```
 ### Build and run the app
 ```
 docker compose up --build
