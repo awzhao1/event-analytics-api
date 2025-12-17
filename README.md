@@ -20,22 +20,29 @@ cd event-analytics-api
 ```
 
 ## Development (Local)
-1. Start virtual environment and install dependencies:
+Start virtual environment and install dependencies:
 ```
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-2. Create the required database in PostgreSQL:
+Start PostgreSQL.
+
+Create the required database in PostgreSQL:
 ```
 psql -U postgres
 CREATE DATABASE event_analytics;
 ```
-3. Run Alembic migrations to create tables
+Create a `.env` file in the root of the project:
+```
+# Main DB
+DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost:5432/event_analytics
+```
+Run Alembic migrations to create tables
 ```
 alembic upgrade head
 ```
-4. Start the FastAPI app:
+Start the FastAPI app:
 ```
 uvicorn app.main:app --reload
 ```
@@ -43,11 +50,12 @@ Visit http://127.0.0.1:8000/docs for the Swagger UI.
 
 ## Docker Setup
 ## Environment Variables
-create a `.env` file in the root of the project:
+Create a `.env` file in the root of the project:
 ```
 # Main DB
 DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/event_analytics
 ```
+Note that this is different from the local `.env` file
 ### Build and run the app
 ```
 docker compose up --build
