@@ -49,7 +49,7 @@ uvicorn app.main:app --reload
 Visit http://127.0.0.1:8000/docs for the Swagger UI.
 
 ## Docker Setup
-## Environment Variables
+### Environment Variables
 Create a `.env` file in the root of the project:
 ```
 # Main DB
@@ -76,7 +76,7 @@ Example request:
 curl -X POST http://127.0.0.1:8000/events/ \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your_api_key_here" \
-  -d `{"event_type": "page_view", "event_metadata": {"page": "/home"}}`
+  -d '{"event_type": "page_view", "event_metadata": {"page": "/home"}}'
 ```
 ## Testing
 Run tests locally (uses SQLite by default):
