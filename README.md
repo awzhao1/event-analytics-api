@@ -60,10 +60,7 @@ Note that this is different from the local `.env` file
 ```
 docker compose up --build
 ```
-### Run tests in Docker
-```
-docker compose run tests
-```
+
 ## API Usage
 ### Authentication
 - Each user has an `api_key`
@@ -82,6 +79,11 @@ curl -X POST http://127.0.0.1:8000/events/ \
 Run tests locally (uses SQLite by default):
 ```
 pytest -v
+```
+
+Run tests in Docker
+```
+docker compose run tests
 ```
 
 ## Architecture
