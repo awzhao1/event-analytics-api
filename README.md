@@ -83,6 +83,14 @@ Run tests locally (uses SQLite by default):
 ```
 pytest -v
 ```
+
+## Architecture
+Systems:
+```mermaid
+graph TD;
+Client-->FastAPI;
+FastAPI-->PostgreSQL;
+```
 ## Contributing
 1. Fork the repo
 2. Create a feature branch
