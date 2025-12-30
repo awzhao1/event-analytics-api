@@ -1,11 +1,12 @@
 # Event Analytics API
-A FastAPI-based API for tracking user events with analytics support. Includes Docker support, PostgreSQL integration, and automated tests.
+A FastAPI-based API for tracking user events with analytics support. Includes AWS deployment, Docker support, PostgreSQL integration, and automated tests.
 ### Features
 - Record user events(e.g., `page_view`, `signup`, etc.)
 - Event summary with time range filtering
 - API key authentication per user
 - PostgreSQL database with Alembic migrations
 - Fully Dockerized for development and testing
+- Designed to be deployed to AWS EC2 instance.
 - Automated tests with `pytest`
 
 ## Getting Started
