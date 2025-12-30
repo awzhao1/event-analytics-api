@@ -61,6 +61,24 @@ Note that this is different from the local `.env` file
 docker compose up --build
 ```
 
+## AWS Deployment (EC2)
+### High Level Steps:
+1. Launch an EC2 instance (Amazon Linux)
+2. Download Docker
+3. Clone this repository
+4. Create .env file in server
+5. Run:
+```
+docker compose up -d --build
+```
+### Open Required Ports
+In EC2 security group:
+- 8000 - API access
+- 22 -SSH
+### Access the API
+```
+http://<EC2_PUBLIC_IP>:8000/docs
+```
 ## API Usage
 ### Authentication
 - Each user has an `api_key`
